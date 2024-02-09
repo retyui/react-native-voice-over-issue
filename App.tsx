@@ -1,118 +1,88 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
+  AppRegistry,
+  Image,
+  Pressable,
   Text,
-  useColorScheme,
   View,
+  StyleSheet,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const img1 =
+  'https://follows-bc85.kxcdn.com/blog/wp-content/uploads/2018/07/Example-IG-Caption.jpg';
+const img2 =
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSONkXzO-GgGrBxVx184_98K0ZxtIztM9fbGw&usqp=CAU';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const noAccessibility = {
+  accessible: false,
+  accessibilityRole: 'none',
+  accessibilityElementsHidden: true, // ios only
+  // ^^^ no effect :(
+};
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App() {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+    <View style={styles.root}>
+      <Pressable
+        accessible={true}
+        accessibilityLabel={'First Image with My Text'}
+        focusable>
+        <Image
+          {...noAccessibility} // no effect :(
+          source={{uri: img1}}
+          //resizeMethod='scale'
+          style={styles.img}
+        />
+        <Text
+          {...noAccessibility} // no effect :(
+          style={styles.text}>
+          Float Text
+        </Text>
+        <Text> Another text </Text>
+      </Pressable>
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+      <View style={{height: 30}} />
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <Pressable
+        focusable
+        accessible={true}
+        accessibilityLabel={'Second Image with My Text'}>
+        <Image
+          {...noAccessibility} // no effect :(
+          source={{uri: img2}}
+          //resizeMethod='scale'
+          style={styles.img}
+        />
+        <Text
+          {...noAccessibility} // no effect :(
+          style={styles.text}>
+          Float Text
+        </Text>
+        <Text> Another text </Text>
+      </Pressable>
+    </View>;
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  root: {
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  img: {
+    width: 400,
+    height: 200,
+    borderColor: 'red',
+    borderWidth: 2,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  text: {
+    left: 20,
+    top: -100,
+    fontSize: 20,
+    color: 'red',
   },
 });
 
-export default App;
+AppRegistry.registerComponent('ClientApp', () => App);
